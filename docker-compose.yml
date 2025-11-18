@@ -1,0 +1,35 @@
+
+services:
+  database:
+    image: postgres:alpine
+    container_name: postgres-db-3-advanced
+    hostname: database
+    volumes:
+      - postgres_data_3_advanced:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=queso
+      - POSTGRES_DB=ex00
+
+  backend:
+    container_name: docker-compose-down-advanced 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - POSTGRES_DB=ex00
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=queso
+      - POSTGRES_HOST=database
+      - POSTGRES_PORT=5432
+    depends_on:
+      - database
+
+volumes:
+  postgres_data_3_advanced:
