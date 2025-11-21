@@ -1,0 +1,99 @@
+[
+	{
+		"model": "auth.user",
+		"pk": 1,
+		"fields": {
+			"username": "john_doe",
+			"password": "pbkdf2_sha256$870000$qF8vLz1B5K3aP2xY9wR1jN$8xG7M+3pQ9kL2nV5tR4uW6sA1hB0cD/E+F=",
+			"is_superuser": false,
+			"is_staff": false,
+			"is_active": true,
+			"first_name": "John",
+			"last_name": "Doe",
+			"email": "john@example.com"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 2,
+		"fields": {
+			"username": "jane_smith",
+			"password": "pbkdf2_sha256$870000$qF8vLz1B5K3aP2xY9wR1jN$8xG7M+3pQ9kL2nV5tR4uW6sA1hB0cD/E+F=",
+			"is_superuser": false,
+			"is_staff": false,
+			"is_active": true,
+			"first_name": "Jane",
+			"last_name": "Smith",
+			"email": "jane@example.com"
+		}
+	},
+	{
+		"model": "auth.user",
+		"pk": 3,
+		"fields": {
+			"username": "bob_wilson",
+			"password": "pbkdf2_sha256$870000$qF8vLz1B5K3aP2xY9wR1jN$8xG7M+3pQ9kL2nV5tR4uW6sA1hB0cD/E+F=",
+			"is_superuser": false,
+			"is_staff": false,
+			"is_active": true,
+			"first_name": "Bob",
+			"last_name": "Wilson",
+			"email": "bob@example.com"
+		}
+	},
+	{
+		"model": "ex00.article",
+		"pk": 1,
+		"fields": {
+			"title": "Introduction to Django",
+			"author": 1,
+			"created": "2025-11-01T10:00:00Z",
+			"synopsis": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+			"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+		}
+	},
+	{
+		"model": "ex00.article",
+		"pk": 2,
+		"fields": {
+			"title": "Advanced Python Techniques",
+			"author": 1,
+			"created": "2025-11-05T14:30:00Z",
+			"synopsis": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper.",
+			"content": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra."
+		}
+	},
+	{
+		"model": "ex00.article",
+		"pk": 3,
+		"fields": {
+			"title": "Web Development Best Practices",
+			"author": 2,
+			"created": "2025-11-08T09:15:00Z",
+			"synopsis": "Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi.",
+			"content": "Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui."
+		}
+	},
+	{
+		"model": "ex00.article",
+		"pk": 4,
+		"fields": {
+			"title": "Database Design Patterns",
+			"author": 2,
+			"created": "2025-11-12T16:45:00Z",
+			"synopsis": "Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat.",
+			"content": "Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh."
+		}
+	},
+	{
+		"model": "ex00.article",
+		"pk": 5,
+		"fields": {
+			"title": "Security in Modern Applications",
+			"author": 3,
+			"created": "2025-11-15T11:20:00Z",
+			"synopsis": "Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.",
+			"content": "Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi. Pellentesque fermentum dolor."
+		}
+	}
+]
