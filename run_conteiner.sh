@@ -1,13 +1,33 @@
 
-#!/bin/bash
+#!/usr/bin/env bash
+
+# Detect docker compose command (POSIX-friendly)
+USE_DOCKER_COMPOSE=0
+if command -v docker >/dev/null 2>&1 && docker compose version >/dev/null 2>&1; then
+	USE_DOCKER_COMPOSE=1
+elif command -v docker-compose >/dev/null 2>&1; then
+	USE_DOCKER_COMPOSE=0
+else
+	echo "No docker compose command found. Aborting."
+	exit 1
+fi
+
+# Helper to run compose commands portably
+run_compose() {
+	if [ "$USE_DOCKER_COMPOSE" -eq 1 ]; then
+		docker compose "$@"
+	else
+		docker-compose "$@"
+	fi
+}
 
 # Stop any previous containers if they exist
 echo "Cleaning up previous containers..."
-docker compose down 2>/dev/null
+run_compose down 2>/dev/null || true
 
 # Build and start containers
 echo "Building and starting containers..."
-docker compose up --build -d
+run_compose up --build -d
 
 echo "Waiting for services to be ready..."
 sleep 5
@@ -37,22 +57,14 @@ echo "Setup complete!"
 echo "=========================================="
 echo ""
 echo "Available URLs:"
-echo "  - Home/Articles: http://localhost:8000"
+echo "  - Articles:      http://localhost:8000"
 echo "  - Login:         http://localhost:8000/login/"
-echo "  - Admin:         http://localhost:8000/admin/"
-echo ""
-echo "Test Users:"
-echo "  - john_doe / test123"
-echo "  - jane_smith / test123"
-echo "  - bob_wilson / test123"
-echo ""
 echo "Admin User:"
 echo "  - admin / admin123"
+echo "  - password: HelloSalutHola"
 echo ""
 echo "To start the Django server, run inside the container:"
 echo "  python manage.py runserver 0.0.0.0:8000"
-echo ""
-echo "Opening Django container shell..."
 echo ""
 
 # Open a shell in the Django container
