@@ -14,6 +14,7 @@
 				<th>Author</th>
 				<th>Created</th>
 				<th>Synopsis</th>
+				<th>Detail</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,13 +24,18 @@
 				<td>{{ article.author }}</td>
 				<td>{{ article.created }}</td>
 				<td>{{ article.synopsis }}</td>
+				<td><a href="{% url 'ex00:detail' article.pk %}">View Details</a></td>
 			</tr>
 			{% empty %}
 			<tr>
-				<td colspan="4">No articles available.</td>
+				<td colspan="5">No articles available.</td>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
+	<br>
+	{% if user.is_authenticated %}
+	<a href="{% url 'ex00:login' %}">Login</a> 
+	{% endif %}
 </body>
 </html>

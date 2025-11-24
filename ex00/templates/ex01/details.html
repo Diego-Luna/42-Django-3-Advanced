@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Article Detail - {{ article.title }}</title>
+</head>
+<body>
+	<h1>Article Details</h1>
+	
+	<div>
+		<h2>{{ article.title }}</h2>
+		
+		<p><strong>Author:</strong> {{ article.author.username }}</p>
+		
+		<p><strong>Created:</strong> {{ article.created }}</p>
+		
+		<p><strong>Synopsis:</strong></p>
+		<p>{{ article.synopsis }}</p>
+		
+		<p><strong>Content:</strong></p>
+		<div>{{ article.content }}</div>
+		
+		<br>
+		<a href="{% url 'ex00:articles' %}">Back to Articles</a>
+		{% if user.is_authenticated %}
+		{% endif %}
+	</div>
+</body>
+</html>

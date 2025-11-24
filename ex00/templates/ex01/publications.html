@@ -1,0 +1,39 @@
+<!-- Publications: HTML page displaying as HTML tables the fields ’title’, ’synopsis’ and
+’created’, of every article recorded in the ’Article’ model whose user is currently logged-in.
+For each article, you also must implement a link which URL must include the article’s identification leading to the ’Detail’ functionality of said article.
+The table must have a ’header’ indicating the title of each column -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications</title>
+</head>
+<body>
+    <h1>Publications</h1>\
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Synopsis</th>
+                <th>Created</th>
+                <th>Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in articles %}
+            <tr>
+                <td>{{ article.title }}</td>
+                <td>{{ article.synopsis }}</td>
+                <td>{{ article.created }}</td>
+                <td><a href="{% url 'ex00:detail' article.pk %}">View Details</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No publications available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
