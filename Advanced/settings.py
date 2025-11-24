@@ -38,7 +38,7 @@ INSTALLED_APPS = [
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
-	'ex00',
+	'Website',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'Advanced.wsgi.application'
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.postgresql',
-		'NAME': os.environ.get('POSTGRES_DB', 'ex00'),
+		'NAME': os.environ.get('POSTGRES_DB', 'django'),
 		'USER': os.environ.get('POSTGRES_USER', 'user'),
 		'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'queso'),
 		'HOST': os.environ.get('POSTGRES_HOST', 'database'),

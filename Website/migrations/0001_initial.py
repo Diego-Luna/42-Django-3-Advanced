@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
             name='UserFavouriteArticle',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ex00.article')),
+                ('article', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Website.article')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),

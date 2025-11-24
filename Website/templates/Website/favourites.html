@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Favourite Articles</title>
+</head>
+<body>
+	<h1>My Favourite Articles</h1>
+	
+	{% if articles %}
+	<ul>
+		{% for article in articles %}
+		<li>
+			<a href="{% url 'Website:detail' article.pk %}">{{ article.title }}</a>
+		</li>
+		{% endfor %}
+	</ul>
+	{% else %}
+	<p>No favourite articles yet.</p>
+	{% endif %}
+	
+	<br>
+	<a href="{% url 'Website:articles' %}">Back to Articles</a>
+	<a href="{% url 'Website:logout' %}">Logout</a>
+</body>
+</html>

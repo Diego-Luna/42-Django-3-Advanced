@@ -24,7 +24,7 @@
 				<td>{{ article.author }}</td>
 				<td>{{ article.created }}</td>
 				<td>{{ article.synopsis }}</td>
-				<td><a href="{% url 'ex00:detail' article.pk %}">View Details</a></td>
+				<td><a href="{% url 'Website:detail' article.pk %}">View Details</a></td>
 			</tr>
 			{% empty %}
 			<tr>
@@ -35,7 +35,11 @@
 	</table>
 	<br>
 	{% if user.is_authenticated %}
-	<a href="{% url 'ex00:login' %}">Login</a> 
+	<a href="{% url 'Website:publications' %}">My Publications</a>
+	<a href="{% url 'Website:favourites' %}">My Favourites</a>
+	<a href="{% url 'Website:logout' %}">Logout</a>
+	{% else %}
+	<a href="{% url 'Website:login' %}">Login</a>
 	{% endif %}
 </body>
 </html>

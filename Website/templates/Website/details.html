@@ -22,8 +22,9 @@
 		<div>{{ article.content }}</div>
 		
 		<br>
-		<a href="{% url 'ex00:articles' %}">Back to Articles</a>
+		<a href="{% url 'Website:articles' %}">Back to Articles</a>
 		{% if user.is_authenticated %}
+		<a href="{% url 'Website:logout' %}">Logout</a>
 		{% endif %}
 	</div>
 </body>

@@ -45,7 +45,7 @@ docker exec docker-compose-down-advanced python manage.py migrate
 
 echo ""
 echo "Loading initial data (fixtures)..."
-docker exec docker-compose-down-advanced python manage.py loaddata ex00/fixtures/initial_data.json
+docker exec docker-compose-down-advanced python manage.py loaddata Website/fixtures/initial_data.json
 
 echo ""
 echo "Creating superuser (if not exists)..."

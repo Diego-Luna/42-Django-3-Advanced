@@ -11,7 +11,7 @@ services:
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=queso
-      - POSTGRES_DB=ex00
+      - POSTGRES_DB=django
 
   backend:
     container_name: docker-compose-down-advanced 
@@ -23,7 +23,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - POSTGRES_DB=ex00
+      - POSTGRES_DB=django
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=queso
       - POSTGRES_HOST=database

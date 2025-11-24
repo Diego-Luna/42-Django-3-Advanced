@@ -24,7 +24,7 @@
 		}
 	},
 	{
-		"model": "ex00.article",
+		"model": "Website.article",
 		"pk": 1,
 		"fields": {
 			"title": "Introduction to Django",
@@ -35,7 +35,7 @@
 		}
 	},
 	{
-		"model": "ex00.article",
+		"model": "Website.article",
 		"pk": 2,
 		"fields": {
 			"title": "Advanced Python Techniques",
@@ -46,7 +46,7 @@
 		}
 	},
 	{
-		"model": "ex00.article",
+		"model": "Website.article",
 		"pk": 3,
 		"fields": {
 			"title": "Web Development Best Practices",
@@ -57,7 +57,7 @@
 		}
 	},
 	{
-		"model": "ex00.article",
+		"model": "Website.article",
 		"pk": 4,
 		"fields": {
 			"title": "Database Design Patterns",
@@ -68,7 +68,7 @@
 		}
 	},
 	{
-		"model": "ex00.article",
+		"model": "Website.article",
 		"pk": 5,
 		"fields": {
 			"title": "Security in Modern Applications",
@@ -76,6 +76,38 @@
 			"created": "2025-11-15T11:20:00Z",
 			"synopsis": "Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus.",
 			"content": "Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus. Phasellus ultrices nulla quis nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem tristique cursus. Nam nulla quam, gravida non, commodo a, sodales sit amet, nisi. Pellentesque fermentum dolor."
+		}
+	},
+	{
+		"model": "Website.userfavouritearticle",
+		"pk": 1,
+		"fields": {
+			"user": 1,
+			"article": 1
+		}
+	},
+	{
+		"model": "Website.userfavouritearticle",
+		"pk": 2,
+		"fields": {
+			"user": 1,
+			"article": 2
+		}
+	},
+	{
+		"model": "Website.userfavouritearticle",
+		"pk": 3,
+		"fields": {
+			"user": 2,
+			"article": 3
+		}
+	},
+	{
+		"model": "Website.userfavouritearticle",
+		"pk": 4,
+		"fields": {
+			"user": 2,
+			"article": 4
 		}
 	}
 ]

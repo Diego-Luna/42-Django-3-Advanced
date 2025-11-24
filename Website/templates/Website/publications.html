@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Publications</title>
+</head>
+<body>
+	<h1>Publications</h1>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Synopsis</th>
+				<th>Created</th>
+				<th>Detail</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for article in articles %}
+			<tr>
+				<td>{{ article.title }}</td>
+				<td>{{ article.synopsis }}</td>
+				<td>{{ article.created }}</td>
+				<td><a href="{% url 'Website:detail' article.pk %}">View Details</a></td>
+			</tr>
+			{% empty %}
+			<tr>
+				<td colspan="4">No publications available.</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<br>
+	<a href="{% url 'Website:articles' %}">Back to Articles</a>
+	<a href="{% url 'Website:logout' %}">Logout</a>
+</body>
+</html>
