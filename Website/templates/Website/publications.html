@@ -1,18 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Publications</title>
-</head>
-<body>
-	<h1>Publications</h1>
+{% extends 'Website/base.html' %}
+{% load article_filters %}
+
+{% block title %}Publications - Website{% endblock %}
+
+{% block content %}
+	<h1>My Publications</h1>
 	<table border="1">
 		<thead>
 			<tr>
 				<th>Title</th>
 				<th>Synopsis</th>
 				<th>Created</th>
+				<th>Published</th>
 				<th>Detail</th>
 			</tr>
 		</thead>
@@ -20,19 +19,18 @@
 			{% for article in articles %}
 			<tr>
 				<td>{{ article.title }}</td>
-				<td>{{ article.synopsis }}</td>
+				<td>{{ article.synopsis|truncate_synopsis:20 }}</td>
 				<td>{{ article.created }}</td>
+				<td>{{ article.created|time_since_publication }}</td>
 				<td><a href="{% url 'Website:detail' article.pk %}">View Details</a></td>
 			</tr>
 			{% empty %}
 			<tr>
-				<td colspan="4">No publications available.</td>
+				<td colspan="5">No publications available.</td>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
 	<br>
-	<a href="{% url 'Website:articles' %}">Back to Articles</a>
-	<a href="{% url 'Website:logout' %}">Logout</a>
-</body>
-</html>
+	<a href="{% url 'Website:publish' %}">Publish New Article</a>
+{% endblock %}

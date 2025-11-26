@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login</title>
-</head>
-<body>
+{% extends 'Website/base.html' %}
+
+{% block title %}Login - Website{% endblock %}
+
+{% block content %}
 	<h1>Login</h1>
 	
 	{% if form.errors %}
@@ -24,8 +21,4 @@
 		</div>
 		<button type="submit">Login</button>
 	</form>
-	
-	<br>
-	<a href="{% url 'Website:articles' %}">Back to Articles</a>
-</body>
-</html>
+{% endblock %}

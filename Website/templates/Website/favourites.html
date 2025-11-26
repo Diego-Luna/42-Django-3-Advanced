@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Favourite Articles</title>
-</head>
-<body>
+{% extends 'Website/base.html' %}
+
+{% block title %}Favourite Articles - Website{% endblock %}
+
+{% block content %}
 	<h1>My Favourite Articles</h1>
 	
 	{% if articles %}
@@ -19,9 +16,4 @@
 	{% else %}
 	<p>No favourite articles yet.</p>
 	{% endif %}
-	
-	<br>
-	<a href="{% url 'Website:articles' %}">Back to Articles</a>
-	<a href="{% url 'Website:logout' %}">Logout</a>
-</body>
-</html>
+{% endblock %}

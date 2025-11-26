@@ -6,7 +6,9 @@ from .views import (
 	LogoutUserView,
 	PublicationsView, 
 	ArticleDetailView,
-	FavouritesView
+	FavouritesView,
+	RegisterView,
+	PublishView
 )
 
 app_name = 'Website'
@@ -15,8 +17,10 @@ urlpatterns = [
 	path('', HomeView.as_view(), name='home'),
 	path('login/', LoginUserView.as_view(), name='login'),
 	path('logout/', LogoutUserView.as_view(), name='logout'),
+	path('register/', RegisterView.as_view(), name='register'),
 	path('articles/', ArticlesView.as_view(), name='articles'),
 	path('publications/', PublicationsView.as_view(), name='publications'),
+	path('publish/', PublishView.as_view(), name='publish'),
 	path('detail/<int:pk>/', ArticleDetailView.as_view(), name='detail'),
 	path('favourites/', FavouritesView.as_view(), name='favourites'),
 ]

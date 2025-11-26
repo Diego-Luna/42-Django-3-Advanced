@@ -1,0 +1,40 @@
+{% extends 'Website/base.html' %}
+
+{% block title %}Register - Website{% endblock %}
+
+{% block content %}
+	<h1>Create a New Account</h1>
+	
+	{% if form.errors %}
+		<div style="color: red;">
+			<p>Please correct the following errors:</p>
+			<ul>
+				{% for field, errors in form.errors.items %}
+					{% for error in errors %}
+						<li>{{ field }}: {{ error }}</li>
+					{% endfor %}
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+	
+	<form method="post">
+		{% csrf_token %}
+		<div>
+			<label for="{{ form.username.id_for_label }}">{{ form.username.label }}:</label>
+			{{ form.username }}
+		</div>
+		<div>
+			<label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}:</label>
+			{{ form.password1 }}
+		</div>
+		<div>
+			<label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}:</label>
+			{{ form.password2 }}
+		</div>
+		<button type="submit">Register</button>
+	</form>
+	
+	<br>
+	<p>Already have an account? <a href="{% url 'Website:login' %}">Login here</a></p>
+{% endblock %}

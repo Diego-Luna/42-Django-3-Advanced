@@ -1,14 +1,19 @@
-from django.views.generic import ListView, RedirectView, DetailView
+from django.views.generic import ListView, RedirectView, DetailView, CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Article, UserFavouriteArticle
+from .forms import CustomUserCreationForm, ArticleForm, AddToFavouriteForm
+from django.contrib.auth.models import User
 
 
 class ArticlesView(ListView):
 	model = Article
 	template_name = 'Website/articles.html'
 	context_object_name = 'articles'
+	
+	def get_queryset(self):
+		return Article.objects.all().order_by('-created')
 
 
 class HomeView(RedirectView):
@@ -35,7 +40,7 @@ class PublicationsView(LoginRequiredMixin, ListView):
 	login_url = 'Website:login'
 	
 	def get_queryset(self):
-		return Article.objects.filter(author=self.request.user)
+		return Article.objects.filter(author=self.request.user).order_by('-created')
 
 
 class ArticleDetailView(DetailView):
@@ -43,6 +48,30 @@ class ArticleDetailView(DetailView):
 	template_name = 'Website/details.html'
 	context_object_name = 'article'
 	pk_url_kwarg = 'pk'
+	
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		if self.request.user.is_authenticated:
+			context['favourite_form'] = AddToFavouriteForm(
+				article_id=self.object.pk,
+				user=self.request.user
+			)
+		return context
+	
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object()
+		if request.user.is_authenticated:
+			form = AddToFavouriteForm(
+				request.POST,
+				article_id=self.object.pk,
+				user=request.user
+			)
+			if form.is_valid():
+				favourite = form.save(commit=False)
+				favourite.user = request.user
+				favourite.save()
+				return self.get(request, *args, **kwargs)
+		return self.get(request, *args, **kwargs)
 
 
 class FavouritesView(LoginRequiredMixin, ListView):
@@ -52,3 +81,22 @@ class FavouritesView(LoginRequiredMixin, ListView):
 	
 	def get_queryset(self):
 		return Article.objects.filter(userfavouritearticle__user=self.request.user)
+
+
+class RegisterView(CreateView):
+	model = User
+	form_class = CustomUserCreationForm
+	template_name = 'Website/register.html'
+	success_url = reverse_lazy('Website:login')
+
+
+class PublishView(LoginRequiredMixin, CreateView):
+	model = Article
+	form_class = ArticleForm
+	template_name = 'Website/publish.html'
+	login_url = 'Website:login'
+	success_url = reverse_lazy('Website:publications')
+	
+	def form_valid(self, form):
+		form.instance.author = self.request.user
+		return super().form_valid(form)

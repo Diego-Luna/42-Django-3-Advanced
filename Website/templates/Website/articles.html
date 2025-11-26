@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Articles</title>
-</head>
-<body>
+{% extends 'Website/base.html' %}
+{% load article_filters %}
+
+{% block title %}Articles - Website{% endblock %}
+
+{% block content %}
 	<h1>Articles</h1>
 	<table border="1">
 		<thead>
@@ -14,6 +12,7 @@
 				<th>Author</th>
 				<th>Created</th>
 				<th>Synopsis</th>
+				<th>Published</th>
 				<th>Detail</th>
 			</tr>
 		</thead>
@@ -23,23 +22,15 @@
 				<td>{{ article.title }}</td>
 				<td>{{ article.author }}</td>
 				<td>{{ article.created }}</td>
-				<td>{{ article.synopsis }}</td>
+				<td>{{ article.synopsis|truncate_synopsis:20 }}</td>
+				<td>{{ article.created|time_since_publication }}</td>
 				<td><a href="{% url 'Website:detail' article.pk %}">View Details</a></td>
 			</tr>
 			{% empty %}
 			<tr>
-				<td colspan="5">No articles available.</td>
+				<td colspan="6">No articles available.</td>
 			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
-	<br>
-	{% if user.is_authenticated %}
-	<a href="{% url 'Website:publications' %}">My Publications</a>
-	<a href="{% url 'Website:favourites' %}">My Favourites</a>
-	<a href="{% url 'Website:logout' %}">Logout</a>
-	{% else %}
-	<a href="{% url 'Website:login' %}">Login</a>
-	{% endif %}
-</body>
-</html>
+{% endblock %}
