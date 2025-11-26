@@ -1,37 +1,41 @@
 {% extends 'Website/base.html' %}
+{% load django_bootstrap5 %}
 
 {% block title %}Publish Article - Website{% endblock %}
 
 {% block content %}
-	<h1>Publish a New Article</h1>
-	
-	{% if form.errors %}
-		<div style="color: red;">
-			<p>Please correct the following errors:</p>
-			<ul>
-				{% for field, errors in form.errors.items %}
-					{% for error in errors %}
-						<li>{{ field }}: {{ error }}</li>
-					{% endfor %}
-				{% endfor %}
-			</ul>
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-8">
+				<div class="card shadow">
+					<div class="card-body">
+						<h1 class="card-title mb-4">Publish a New Article</h1>
+						
+						{% if form.errors %}
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+								<strong>Errors:</strong>
+								<ul class="mb-0">
+									{% for field, errors in form.errors.items %}
+										{% for error in errors %}
+											<li>{{ field }}: {{ error }}</li>
+										{% endfor %}
+									{% endfor %}
+								</ul>
+								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+						{% endif %}
+						
+						<form method="post" novalidate>
+							{% csrf_token %}
+							{% bootstrap_form form %}
+							<div class="d-flex gap-2">
+								<button type="submit" class="btn btn-primary">Publish</button>
+								<a href="{% url 'Website:publications' %}" class="btn btn-secondary">Cancel</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
-	{% endif %}
-	
-	<form method="post">
-		{% csrf_token %}
-		<div>
-			<label for="{{ form.title.id_for_label }}">{{ form.title.label }}:</label>
-			{{ form.title }}
-		</div>
-		<div>
-			<label for="{{ form.synopsis.id_for_label }}">{{ form.synopsis.label }}:</label>
-			{{ form.synopsis }}
-		</div>
-		<div>
-			<label for="{{ form.content.id_for_label }}">{{ form.content.label }}:</label>
-			{{ form.content }}
-		</div>
-		<button type="submit">Publish</button>
-	</form>
+	</div>
 {% endblock %}

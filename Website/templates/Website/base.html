@@ -1,88 +1,85 @@
 {% load article_filters %}
+{% load django_bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block title %}Website{% endblock %}</title>
+	{% bootstrap_css %}
+	<!-- Bootstrap Icons CDN -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-	<!-- Navigation Menu -->
-	<nav style="border: 1px solid black; padding: 10px; margin-bottom: 20px;">
-		<h2>Menu</h2>
-		<ul style="list-style: none; padding: 0;">
-			<!-- Home Link -->
-			<li style="display: inline; margin-right: 15px;">
-				<a href="{% url 'Website:home' %}">Home</a>
-			</li>
-			
-			<!-- Last Articles Link -->
-			<li style="display: inline; margin-right: 15px;">
-				<a href="{% url 'Website:articles' %}">Last Articles</a>
-			</li>
-			
-			<!-- If not authenticated -->
-			{% if not user.is_authenticated %}
-				<!-- Register Link -->
-				<li style="display: inline; margin-right: 15px;">
-					<a href="{% url 'Website:register' %}">Register</a>
-				</li>
-				
-				<!-- Login Form in Menu -->
-				<li style="display: inline; margin-right: 15px;">
-					<div style="border: 1px solid #ccc; padding: 10px; display: inline-block;">
-						<h4>Login</h4>
-						{% if login_form.errors %}
-							<div style="color: red;">
-								<p>Invalid username or password. Please try again.</p>
+
+	<!-- Top small language link (top-right) -->
+	<div class="container-fluid py-2">
+		<div class="d-flex justify-content-end">
+			<a href="#" class="text-decoration-none top-language">Passer en français</a>
+		</div>
+	</div>
+
+	<!-- Big Title and subtitle -->
+	<div class="container site-title">
+		<div class="row">
+			<div class="col-12">
+				<h1 class="display-5">Articles <small class="text-muted">Share your writings</small></h1>
+			</div>
+		</div>
+	</div>
+
+	<!-- Dark menu bar with left links and right login/status -->
+	<div class="container-fluid">
+		<div class="bg-dark text-light p-2 nav-box">
+			<div class="container">
+				<div class="row align-items-center">
+					<!-- Left menu area -->
+					<div class="col-md-8 d-flex align-items-center">
+							<div class="d-inline-flex align-items-center justify-content-center bg-dark text-light rounded me-2 p-2">
+								<i class="bi bi-layout-text-window-reverse"></i>
+						</div>
+						<ul class="nav menu-left">
+							<li class="nav-item">
+								<a class="nav-link text-light" href="{% url 'Website:home' %}">Articles</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light" href="{% url 'Website:favourites' %}">Favourites</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light" href="{% url 'Website:publications' %}">Publications</a>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Right login/status area -->
+					<div class="col-md-4 d-flex justify-content-end align-items-center">
+						{% if not user.is_authenticated %}
+								<form method="post" action="{% url 'Website:login' %}" class="d-flex align-items-center gap-2">
+									{% csrf_token %}
+									<input type="text" class="form-control form-control-sm w-25" name="username" placeholder="username">
+									<input type="password" class="form-control form-control-sm w-25" name="password" placeholder="password">
+									<button class="btn btn-sm btn-light" type="submit">Login</button>
+								</form>
+						{% else %}
+							<div class="text-end">
+								<span class="small">Logged as <strong>{{ user.username }}</strong></span>
+								<form method="post" action="{% url 'Website:logout' %}" class="d-inline ms-2">
+									{% csrf_token %}
+									<button class="btn btn-sm btn-outline-light" type="submit">Logout</button>
+								</form>
 							</div>
 						{% endif %}
-						<form method="post" action="{% url 'Website:login' %}" style="display: inline;">
-							{% csrf_token %}
-							<div>
-								<label for="{{ login_form.username.id_for_label }}">Username:</label>
-								{{ login_form.username }}
-							</div>
-							<div>
-								<label for="{{ login_form.password.id_for_label }}">Password:</label>
-								{{ login_form.password }}
-							</div>
-							<button type="submit">Login</button>
-						</form>
 					</div>
-				</li>
-			
-			<!-- If authenticated -->
-			{% else %}
-				<!-- Favourites Link -->
-				<li style="display: inline; margin-right: 15px;">
-					<a href="{% url 'Website:favourites' %}">Favourites</a>
-				</li>
-				
-				<!-- Publications Link -->
-				<li style="display: inline; margin-right: 15px;">
-					<a href="{% url 'Website:publications' %}">Publications</a>
-				</li>
-				
-				<!-- Logged as User Text -->
-				<li style="display: inline; margin-right: 15px;">
-					Logged as <strong>{{ user.username }}</strong>
-				</li>
-				
-				<!-- Logout Form -->
-				<li style="display: inline; margin-right: 15px;">
-					<form method="post" action="{% url 'Website:logout' %}" style="display: inline;">
-						{% csrf_token %}
-						<button type="submit">Logout</button>
-					</form>
-				</li>
-			{% endif %}
-		</ul>
-	</nav>
-	
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Main Content -->
-	<div class="content">
+	<div class="container-fluid mt-4">
 		{% block content %}{% endblock %}
 	</div>
+
+	{% bootstrap_javascript %}
 </body>
 </html>

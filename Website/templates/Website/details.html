@@ -1,34 +1,52 @@
 {% extends 'Website/base.html' %}
 {% load article_filters %}
+{% load django_bootstrap5 %}
 
 {% block title %}{{ article.title }} - Website{% endblock %}
 
 {% block content %}
-	<h1>Article Details</h1>
-	
-	<div>
-		<h2>{{ article.title }}</h2>
-		
-		<p><strong>Author:</strong> {{ article.author.username }}</p>
-		
-		<p><strong>Created:</strong> {{ article.created }}</p>
-		
-		<p><strong>Published:</strong> {{ article.created|time_since_publication }}</p>
-		
-		<p><strong>Synopsis:</strong></p>
-		<p>{{ article.synopsis }}</p>
-		
-		<p><strong>Content:</strong></p>
-		<div>{{ article.content }}</div>
-		
-		{% if user.is_authenticated and favourite_form %}
-		<br>
-		<h3>Add to Favourites</h3>
-		<form method="post">
-			{% csrf_token %}
-			{{ favourite_form.as_p }}
-			<button type="submit">Add to Favourites</button>
-		</form>
-		{% endif %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 mx-auto">
+				<article class="card shadow-sm">
+					<div class="card-body">
+						<h1 class="card-title mb-3">{{ article.title }}</h1>
+						
+						<div class="text-muted mb-3">
+							<small>
+								<strong>By {{ article.author.username }}</strong> • 
+								{{ article.created|date:"M. d, Y, P" }} • 
+								{{ article.created|time_since_publication }}
+							</small>
+						</div>
+						
+						<div class="mb-4">
+							<h5>Synopsis</h5>
+							<p class="lead">{{ article.synopsis }}</p>
+						</div>
+						
+						<div class="mb-4">
+							<h5>Content</h5>
+							<div class="fs-6 lh-lg">{{ article.content }}</div>
+						</div>
+						
+						{% if user.is_authenticated and favourite_form %}
+						<div class="card card-body bg-light mt-4">
+							<h5 class="card-title">Add to Favourites</h5>
+							<form method="post">
+								{% csrf_token %}
+								{{ favourite_form.as_p }}
+								<button type="submit" class="btn btn-primary">Add to Favourites</button>
+							</form>
+						</div>
+						{% endif %}
+						
+						<div class="mt-4">
+							<a href="{% url 'Website:articles' %}" class="btn btn-secondary">Back to Articles</a>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
 	</div>
 {% endblock %}
