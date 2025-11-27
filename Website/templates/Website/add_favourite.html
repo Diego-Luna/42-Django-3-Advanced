@@ -1,20 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Add to Favourites</title>
-</head>
-<body>
-	<h1>Add to Favourites</h1>
-	
-	<form method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit">Add to Favourites</button>
-	</form>
-	
-	<br>
-	<a href="{% url 'Website:articles' %}">Back to Articles</a>
-</body>
-</html>
+{% extends 'Website/base.html' %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+
+{% block title %}{% trans "Add to Favourites" %} - Website{% endblock %}
+
+{% block content %}
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-6">
+				<div class="card shadow">
+					<div class="card-body">
+						<h1 class="card-title mb-4">{% trans "Add to Favourites" %}</h1>
+						
+						<form method="post" novalidate>
+							{% csrf_token %}
+							{% bootstrap_form form %}
+							<div class="d-flex gap-2">
+								<button type="submit" class="btn btn-primary">{% trans "Add to Favourites" %}</button>
+								<a href="{% url 'Website:articles' %}" class="btn btn-secondary">{% trans "Back to Articles" %}</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

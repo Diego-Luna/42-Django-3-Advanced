@@ -1,5 +1,6 @@
 {% extends 'Website/base.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block title %}Publish Article - Website{% endblock %}
 
@@ -9,11 +10,11 @@
 			<div class="col-lg-8">
 				<div class="card shadow">
 					<div class="card-body">
-						<h1 class="card-title mb-4">Publish a New Article</h1>
+						<h1 class="card-title mb-4">{% trans "Publish a New Article" %}</h1>
 						
 						{% if form.errors %}
 							<div class="alert alert-danger alert-dismissible fade show" role="alert">
-								<strong>Errors:</strong>
+								<strong>{% trans "Errors:" %}</strong>
 								<ul class="mb-0">
 									{% for field, errors in form.errors.items %}
 										{% for error in errors %}
@@ -29,8 +30,8 @@
 							{% csrf_token %}
 							{% bootstrap_form form %}
 							<div class="d-flex gap-2">
-								<button type="submit" class="btn btn-primary">Publish</button>
-								<a href="{% url 'Website:publications' %}" class="btn btn-secondary">Cancel</a>
+							<button type="submit" class="btn btn-primary">{% trans "Publish" %}</button>
+							<a href="{% url 'Website:publications' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 							</div>
 						</form>
 					</div>

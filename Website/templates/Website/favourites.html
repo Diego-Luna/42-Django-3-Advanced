@@ -1,11 +1,12 @@
 {% extends 'Website/base.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block title %}Favourite Articles - Website{% endblock %}
 
 {% block content %}
 	<div class="container">
-		<h1 class="mb-4">Favourites <span class="text-muted fs-5">Your saved articles</span></h1>
+		<h1 class="mb-4">{% trans "Favourites" %} <span class="text-muted fs-5">{% trans "Your saved articles" %}</span></h1>
 		
 		{% if articles %}
 		<div class="list-group">
@@ -13,15 +14,15 @@
 			<a href="{% url 'Website:detail' article.pk %}" class="list-group-item list-group-item-action">
 				<div class="d-flex w-100 justify-content-between align-items-center">
 					<h5 class="mb-0">{{ article.title }}</h5>
-					<span class="badge bg-info rounded-pill">Read</span>
+					<span class="badge bg-info rounded-pill">{% trans "Read" %}</span>
 				</div>
-				<p class="mb-1 text-muted">By {{ article.author.username }}</p>
+				<p class="mb-1 text-muted">{% trans "By" %} {{ article.author.username }}</p>
 			</a>
 			{% endfor %}
 		</div>
 		{% else %}
 		<div class="alert alert-info" role="alert">
-			<p class="mb-0">No favourite articles yet. Start adding your favorites!</p>
+			<p class="mb-0">{% trans "No favourite articles yet. Start adding your favorites!" %}</p>
 		</div>
 		{% endif %}
 	</div>

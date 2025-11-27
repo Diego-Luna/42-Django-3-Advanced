@@ -1,23 +1,21 @@
-<!-- Publications: HTML page displaying as HTML tables the fields ’title’, ’synopsis’ and
-’created’, of every article recorded in the ’Article’ model whose user is currently logged-in.
-For each article, you also must implement a link which URL must include the article’s identification leading to the ’Detail’ functionality of said article.
-The table must have a ’header’ indicating the title of each column -->
+
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publications</title>
+    <title>{% trans "Publications" %}</title>
 </head>
 <body>
-    <h1>Publications</h1>\
+    <h1>{% trans "Publications" %}</h1>
     <table border="1">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Synopsis</th>
-                <th>Created</th>
-                <th>Detail</th>
+                <th>{% trans "Title" %}</th>
+                <th>{% trans "Synopsis" %}</th>
+                <th>{% trans "Created" %}</th>
+                <th>{% trans "Detail" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -26,11 +24,11 @@ The table must have a ’header’ indicating the title of each column -->
                 <td>{{ article.title }}</td>
                 <td>{{ article.synopsis }}</td>
                 <td>{{ article.created }}</td>
-                <td><a href="{% url 'Website:detail' article.pk %}">View Details</a></td>
+                <td><a href="{% url 'Website:detail' article.pk %}">{% trans "View Details" %}</a></td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">No publications available.</td>
+                <td colspan="4">{% trans "No publications available." %}</td>
             </tr>
             {% endfor %}
         </tbody>

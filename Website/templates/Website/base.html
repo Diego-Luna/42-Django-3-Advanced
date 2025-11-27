@@ -1,7 +1,8 @@
 {% load article_filters %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,8 +15,18 @@
 
 	<!-- Top small language link (top-right) -->
 	<div class="container-fluid py-2">
-		<div class="d-flex justify-content-end">
-			<a href="#" class="text-decoration-none top-language">Passer en français</a>
+		<div class="d-flex justify-content-end gap-2">
+			{% get_available_languages as languages %}
+			{% get_current_language as current_lang %}
+			{% for code, name in languages %}
+				{% if code == current_lang %}
+					<span class="text-muted small"><strong>{{ name }}</strong></span>
+				{% else %}
+					{% language code %}
+						<a href="{% url 'Website:home' %}" class="text-decoration-none small">{{ name }}</a>
+					{% endlanguage %}
+				{% endif %}
+			{% endfor %}
 		</div>
 	</div>
 
@@ -23,7 +34,7 @@
 	<div class="container site-title">
 		<div class="row">
 			<div class="col-12">
-				<h1 class="display-5">Articles <small class="text-muted">Share your writings</small></h1>
+				<h1 class="display-5">{% trans "Articles" %} <small class="text-muted">{% trans "Share your writings" %}</small></h1>
 			</div>
 		</div>
 	</div>
@@ -40,13 +51,13 @@
 						</div>
 						<ul class="nav menu-left">
 							<li class="nav-item">
-								<a class="nav-link text-light" href="{% url 'Website:home' %}">Articles</a>
+								<a class="nav-link text-light" href="{% url 'Website:home' %}">{% trans "Articles" %}</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-light" href="{% url 'Website:favourites' %}">Favourites</a>
+								<a class="nav-link text-light" href="{% url 'Website:favourites' %}">{% trans "Favourites" %}</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-light" href="{% url 'Website:publications' %}">Publications</a>
+								<a class="nav-link text-light" href="{% url 'Website:publications' %}">{% trans "Publications" %}</a>
 							</li>
 						</ul>
 					</div>
@@ -56,16 +67,16 @@
 						{% if not user.is_authenticated %}
 								<form method="post" action="{% url 'Website:login' %}" class="d-flex align-items-center gap-2">
 									{% csrf_token %}
-									<input type="text" class="form-control form-control-sm w-25" name="username" placeholder="username">
-									<input type="password" class="form-control form-control-sm w-25" name="password" placeholder="password">
-									<button class="btn btn-sm btn-light" type="submit">Login</button>
+									<input type="text" class="form-control form-control-sm w-25" name="username" placeholder="{% trans 'username' %}">
+									<input type="password" class="form-control form-control-sm w-25" name="password" placeholder="{% trans 'password' %}">
+									<button class="btn btn-sm btn-light" type="submit">{% trans "Login" %}</button>
 								</form>
 						{% else %}
 							<div class="text-end">
-								<span class="small">Logged as <strong>{{ user.username }}</strong></span>
+								<span class="small">{% trans "Logged as" %} <strong>{{ user.username }}</strong></span>
 								<form method="post" action="{% url 'Website:logout' %}" class="d-inline ms-2">
 									{% csrf_token %}
-									<button class="btn btn-sm btn-outline-light" type="submit">Logout</button>
+									<button class="btn btn-sm btn-outline-light" type="submit">{% trans "Logout" %}</button>
 								</form>
 							</div>
 						{% endif %}

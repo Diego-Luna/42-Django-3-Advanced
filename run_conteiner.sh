@@ -35,21 +35,21 @@ sleep 5
 # Check container status
 echo ""
 echo "Containers status:"
-docker ps --filter "name=docker-compose-down-advanced" --filter "name=postgres-db-3-advanced"
+docker ps --filter "name=django-backend-advanced" --filter "name=postgres-db-3-advanced"
 
 echo ""
 echo "Containers started!"
 echo ""
 echo "Running migrations..."
-docker exec docker-compose-down-advanced python manage.py migrate
+docker exec django-backend-advanced python manage.py migrate
 
 echo ""
 echo "Loading initial data (fixtures)..."
-docker exec docker-compose-down-advanced python manage.py loaddata Website/fixtures/initial_data.json
+docker exec django-backend-advanced python manage.py loaddata Website/fixtures/initial_data.json
 
 echo ""
 echo "Creating superuser (if not exists)..."
-docker exec docker-compose-down-advanced python manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin123')" 2>/dev/null
+docker exec django-backend-advanced python manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin123')" 2>/dev/null
 
 echo ""
 echo "=========================================="
@@ -68,4 +68,4 @@ echo "  python manage.py runserver 0.0.0.0:8000"
 echo ""
 
 # Open a shell in the Django container
-docker exec -it docker-compose-down-advanced /bin/zsh
+docker exec -it django-backend-advanced /bin/zsh

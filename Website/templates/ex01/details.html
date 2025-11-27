@@ -1,28 +1,29 @@
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Article Detail - {{ article.title }}</title>
+	<title>{% trans "Article Detail" %} - {{ article.title }}</title>
 </head>
 <body>
-	<h1>Article Details</h1>
+	<h1>{% trans "Article Details" %}</h1>
 	
 	<div>
 		<h2>{{ article.title }}</h2>
 		
-		<p><strong>Author:</strong> {{ article.author.username }}</p>
+		<p><strong>{% trans "Author" %}:</strong> {{ article.author.username }}</p>
 		
-		<p><strong>Created:</strong> {{ article.created }}</p>
+		<p><strong>{% trans "Created" %}:</strong> {{ article.created }}</p>
 		
-		<p><strong>Synopsis:</strong></p>
+		<p><strong>{% trans "Synopsis" %}:</strong></p>
 		<p>{{ article.synopsis }}</p>
 		
-		<p><strong>Content:</strong></p>
+		<p><strong>{% trans "Content" %}:</strong></p>
 		<div>{{ article.content }}</div>
 		
 		<br>
-		<a href="{% url 'Website:articles' %}">Back to Articles</a>
+		<a href="{% url 'Website:articles' %}">{% trans "Back to Articles" %}</a>
 		{% if user.is_authenticated %}
 		{% endif %}
 	</div>

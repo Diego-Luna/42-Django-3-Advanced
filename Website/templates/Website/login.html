@@ -1,5 +1,6 @@
 {% extends 'Website/base.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block title %}Login - Website{% endblock %}
 
@@ -9,11 +10,11 @@
 			<div class="col-md-5">
 				<div class="card shadow">
 					<div class="card-body">
-						<h1 class="card-title text-center mb-4">Login</h1>
+						<h1 class="card-title text-center mb-4">{% trans "Login" %}</h1>
 						
 						{% if form.errors %}
 							<div class="alert alert-danger alert-dismissible fade show" role="alert">
-								<strong>Error!</strong> Invalid username or password. Please try again.
+								<strong>{% trans "Error!" %}</strong> {% trans "Invalid username or password. Please try again." %}
 								<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							</div>
 						{% endif %}
@@ -21,12 +22,12 @@
 						<form method="post" novalidate>
 							{% csrf_token %}
 							{% bootstrap_form form %}
-							<button type="submit" class="btn btn-primary w-100">Login</button>
+							<button type="submit" class="btn btn-primary w-100">{% trans "Login" %}</button>
 						</form>
 						
 						<hr class="my-4">
 						<p class="text-center mb-0">
-							Don't have an account? <a href="{% url 'Website:register' %}">Register here</a>
+						{% trans "Don't have an account?" %} <a href="{% url 'Website:register' %}">{% trans "Register here" %}</a>
 						</p>
 					</div>
 				</div>

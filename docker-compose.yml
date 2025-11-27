@@ -14,7 +14,7 @@ services:
       - POSTGRES_DB=django
 
   backend:
-    container_name: docker-compose-down-advanced 
+    container_name: django-backend-advanced
     build:
       context: .
       dockerfile: Dockerfile

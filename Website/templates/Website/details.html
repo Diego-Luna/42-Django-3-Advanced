@@ -1,6 +1,7 @@
 {% extends 'Website/base.html' %}
 {% load article_filters %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block title %}{{ article.title }} - Website{% endblock %}
 
@@ -20,29 +21,27 @@
 							</small>
 						</div>
 						
-						<div class="mb-4">
-							<h5>Synopsis</h5>
-							<p class="lead">{{ article.synopsis }}</p>
-						</div>
-						
-						<div class="mb-4">
-							<h5>Content</h5>
+					<div class="mb-4">
+						<h5>{% trans "Synopsis" %}</h5>
+						<p class="lead">{{ article.synopsis }}</p>
+					</div>						<div class="mb-4">
+							<h5>{% trans "Content" %}</h5>
 							<div class="fs-6 lh-lg">{{ article.content }}</div>
 						</div>
 						
 						{% if user.is_authenticated and favourite_form %}
 						<div class="card card-body bg-light mt-4">
-							<h5 class="card-title">Add to Favourites</h5>
+							<h5 class="card-title">{% trans "Add to Favourites" %}</h5>
 							<form method="post">
 								{% csrf_token %}
 								{{ favourite_form.as_p }}
-								<button type="submit" class="btn btn-primary">Add to Favourites</button>
+								<button type="submit" class="btn btn-primary">{% trans "Add to Favourites" %}</button>
 							</form>
 						</div>
 						{% endif %}
 						
 						<div class="mt-4">
-							<a href="{% url 'Website:articles' %}" class="btn btn-secondary">Back to Articles</a>
+							<a href="{% url 'Website:articles' %}" class="btn btn-secondary">{% trans "Back to Articles" %}</a>
 						</div>
 					</div>
 				</article>
