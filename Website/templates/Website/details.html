@@ -32,7 +32,7 @@
 						{% if user.is_authenticated and favourite_form %}
 						<div class="card card-body bg-light mt-4">
 							<h5 class="card-title">{% trans "Add to Favourites" %}</h5>
-							<form method="post">
+							<form method="post" action="{% url 'Website:add_favourite' article.pk %}">
 								{% csrf_token %}
 								{{ favourite_form.as_p }}
 								<button type="submit" class="btn btn-primary">{% trans "Add to Favourites" %}</button>

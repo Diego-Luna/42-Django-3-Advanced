@@ -8,7 +8,8 @@ from .views import (
 	ArticleDetailView,
 	FavouritesView,
 	RegisterView,
-	PublishView
+	PublishView,
+	AddToFavouriteView
 )
 
 app_name = 'Website'
@@ -22,5 +23,6 @@ urlpatterns = [
 	path('publications/', PublicationsView.as_view(), name='publications'),
 	path('publish/', PublishView.as_view(), name='publish'),
 	path('detail/<int:pk>/', ArticleDetailView.as_view(), name='detail'),
+	path('favourite/<int:article_id>/', AddToFavouriteView.as_view(), name='add_favourite'),
 	path('favourites/', FavouritesView.as_view(), name='favourites'),
 ]

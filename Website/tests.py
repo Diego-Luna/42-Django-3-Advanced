@@ -108,7 +108,7 @@ class TestUserCannotAddDuplicateFavourite(TestCase):
 	
 	def test_user_can_add_article_to_favourites_once(self):
 		"""User should be able to add an article to favourites for the first time"""
-		url = reverse('Website:detail', kwargs={'pk': self.article.pk})
+		url = reverse('Website:add_favourite', kwargs={'article_id': self.article.pk})
 		response = self.client.post(url, {'article': self.article.pk})
 		self.assertEqual(UserFavouriteArticle.objects.filter(
 			user=self.user, 
@@ -124,7 +124,7 @@ class TestUserCannotAddDuplicateFavourite(TestCase):
 		).count()
 		self.assertEqual(initial_count, 1)
 		
-		url = reverse('Website:detail', kwargs={'pk': self.article.pk})
+		url = reverse('Website:add_favourite', kwargs={'article_id': self.article.pk})
 		response = self.client.post(url, {'article': self.article.pk})
 		
 		final_count = UserFavouriteArticle.objects.filter(

@@ -58,26 +58,28 @@ class ArticleDetailView(DetailView):
 				user=self.request.user
 			)
 		return context
+
+
+class AddToFavouriteView(LoginRequiredMixin, CreateView):
+	model = UserFavouriteArticle
+	form_class = AddToFavouriteForm
+	template_name = 'Website/details.html'
+	login_url = 'Website:login'
 	
-	def post(self, request, *args, **kwargs):
-		self.object = self.get_object()
-		if request.user.is_authenticated:
-			existing = UserFavouriteArticle.objects.filter(
-				user=request.user,
-				article=self.object
-			).exists()
-			
-			if not existing:
-				form = AddToFavouriteForm(
-					request.POST,
-					article_id=self.object.pk,
-					user=request.user
-				)
-				if form.is_valid():
-					favourite = form.save(commit=False)
-					favourite.user = request.user
-					favourite.save()
-		return self.get(request, *args, **kwargs)
+	def get_form_kwargs(self):
+		kwargs = super().get_form_kwargs()
+		kwargs['article_id'] = self.kwargs.get('article_id')
+		kwargs['user'] = self.request.user
+		return kwargs
+
+	def form_valid(self, form):
+		form.instance.user = self.request.user
+		if UserFavouriteArticle.objects.filter(user=self.request.user, article=form.instance.article).exists():
+			return redirect(self.get_success_url())
+		return super().form_valid(form)
+
+	def get_success_url(self):
+		return reverse_lazy('Website:detail', kwargs={'pk': self.kwargs.get('article_id')})
 
 
 class FavouritesView(LoginRequiredMixin, ListView):

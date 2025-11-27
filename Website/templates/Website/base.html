@@ -51,14 +51,23 @@
 						</div>
 						<ul class="nav menu-left">
 							<li class="nav-item">
-								<a class="nav-link text-light" href="{% url 'Website:home' %}">{% trans "Articles" %}</a>
+								<a class="nav-link text-light" href="{% url 'Website:home' %}">{% trans "Home" %}</a>
 							</li>
+							<li class="nav-item">
+								<a class="nav-link text-light" href="{% url 'Website:articles' %}">{% trans "Last Articles" %}</a>
+							</li>
+							{% if user.is_authenticated %}
 							<li class="nav-item">
 								<a class="nav-link text-light" href="{% url 'Website:favourites' %}">{% trans "Favourites" %}</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-light" href="{% url 'Website:publications' %}">{% trans "Publications" %}</a>
 							</li>
+							{% else %}
+							<li class="nav-item">
+								<a class="nav-link text-light" href="{% url 'Website:register' %}">{% trans "Register" %}</a>
+							</li>
+							{% endif %}
 						</ul>
 					</div>
 
