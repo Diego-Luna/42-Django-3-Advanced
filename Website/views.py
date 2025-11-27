@@ -2,6 +2,7 @@ from django.views.generic import ListView, RedirectView, DetailView, CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 from .models import Article, UserFavouriteArticle
 from .forms import CustomUserCreationForm, ArticleForm, AddToFavouriteForm
 from django.contrib.auth.models import User
@@ -61,16 +62,21 @@ class ArticleDetailView(DetailView):
 	def post(self, request, *args, **kwargs):
 		self.object = self.get_object()
 		if request.user.is_authenticated:
-			form = AddToFavouriteForm(
-				request.POST,
-				article_id=self.object.pk,
-				user=request.user
-			)
-			if form.is_valid():
-				favourite = form.save(commit=False)
-				favourite.user = request.user
-				favourite.save()
-				return self.get(request, *args, **kwargs)
+			existing = UserFavouriteArticle.objects.filter(
+				user=request.user,
+				article=self.object
+			).exists()
+			
+			if not existing:
+				form = AddToFavouriteForm(
+					request.POST,
+					article_id=self.object.pk,
+					user=request.user
+				)
+				if form.is_valid():
+					favourite = form.save(commit=False)
+					favourite.user = request.user
+					favourite.save()
 		return self.get(request, *args, **kwargs)
 
 
@@ -88,6 +94,11 @@ class RegisterView(CreateView):
 	form_class = CustomUserCreationForm
 	template_name = 'Website/register.html'
 	success_url = reverse_lazy('Website:login')
+	
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			return redirect('Website:home')
+		return super().dispatch(request, *args, **kwargs)
 
 
 class PublishView(LoginRequiredMixin, CreateView):
